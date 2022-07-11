@@ -2,18 +2,21 @@ package test.java;
 
 import main.java.Cache;
 import main.java.LRUCache;
+
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
+
+
 public class LRUCacheUnitTest {
     LRUCache<String, String> lruCache = new LRUCache<>(3);
-
     @Before
     public void addSomeDataToCache(){
         lruCache.put("1", "test1");
@@ -24,7 +27,6 @@ public class LRUCacheUnitTest {
 
     @Test
     public void addSomeDataToCache_WhenPutNewValueToExistingKey_ThenValueIsUpdated(){
-
 
         lruCache.put("2", "Value to be Updated");
         assertEquals("Value to be Updated", lruCache.get("2").get());
@@ -62,7 +64,7 @@ public class LRUCacheUnitTest {
 
     @Test
     public void runMultiThreadTask_WhenPutDataInConcurrentToCache_ThenNoDataLost() throws Exception {
-        final int size = 50;
+        final int size = 10000000;
         final ExecutorService executorService = Executors.newFixedThreadPool(5);
         Cache<Integer, String> cache = new LRUCache<>(size);
         CountDownLatch countDownLatch = new CountDownLatch(size);
